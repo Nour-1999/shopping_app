@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/Model/DatabaseServce.dart';
 import 'package:shopping_app/Model/User.dart';
+import 'package:shopping_app/Screen/ContentApp/Drawer.dart';
 import 'package:shopping_app/Screen/ContentApp/FirstScreen.dart';
 import 'package:shopping_app/Screen/FormScreens/SignUpForm.dart';
 import 'package:shopping_app/generated/l10n.dart';
@@ -142,7 +143,7 @@ class _LogInFormState extends State<LogInForm> {
           print(value);
         },
         decoration: InputDecoration(
-            labelText: S.of(context).emailLabelText,
+            labelText: S.of(context).UserNameLabelText,
             border: OutlineInputBorder(),
             prefixIcon: Icon(
               Icons.person,
@@ -191,7 +192,12 @@ class _LogInFormState extends State<LogInForm> {
           if (_formKey.currentState.validate()) {
            _formKey.currentState.save();
             // _formKey.currentState.reset();
-           Navigator.of(context).pushNamed(MainScreen.id);
+//           Navigator.of(context).pushNamed(LightDrawerPage.id);
+           Navigator.pushAndRemoveUntil(
+               context,
+               MaterialPageRoute(
+                   builder: (context) => LightDrawerPage()),
+                   (route) => false);
 
               SnackBar(
                 content: Text(S.of(context).PasswordLabelText),
@@ -213,11 +219,8 @@ class _LogInFormState extends State<LogInForm> {
             text: TextSpan(children: [
               TextSpan(
                   text: S.of(context).ForgotYourPassword,
-                  style: TextStyle(
-                    fontFamily: 'SFUIDisplay',
-                    color: Colors.blueAccent,
-                    fontSize: 15,
-                  )),
+                  style:ActionText,
+              ),
             ]),
           ),
           onTap: () {
@@ -237,18 +240,12 @@ class _LogInFormState extends State<LogInForm> {
             text: TextSpan(children: [
               TextSpan(
                   text: S.of(context).DoNotHaveAnAccount,
-                  style: TextStyle(
-                    fontFamily: 'SFUIDisplay',
-                    color: Colors.black,
-                    fontSize: 15,
-                  )),
+                  style:beforeActionText,
+              ),
               TextSpan(
                   text: S.of(context).buttonTitleSignUp,
-                  style: TextStyle(
-                    fontFamily: 'SFUIDisplay',
-                    color: Colors.blueAccent,
-                    fontSize: 15,
-                  ))
+                  style: ActionText,
+              )
             ]),
           ),
           onTap: () {

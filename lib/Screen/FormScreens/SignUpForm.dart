@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:regexpattern/regexpattern.dart';
 import 'package:shopping_app/Model/DatabaseServce.dart';
 import 'package:shopping_app/Model/User.dart';
+import 'package:shopping_app/Screen/FormScreens/ConfirmPhon.dart';
 import 'package:shopping_app/Screen/FormScreens/LogInScreen.dart';
 import 'package:shopping_app/generated/l10n.dart';
 import 'package:shopping_app/widgets/Constants.dart';
@@ -39,20 +40,27 @@ class SignUpScreenState extends State<SignUpScreen> {
     print("id $id");
   }
 
-  Future<UserModel> _checkIfUserExist(String userName) async {
-    final UserModel user = await dbService.getUser(userName);
-  //  print("user$user");
-    return user;
-//    if (user != null) {
-//      print("user" + user.userName);
-//
-//      return true;
-//
-//    }
-//    print("end ");
-//    return false;
+  Future<bool> _checkIfUserExist(String userName) async {
+     var user = await dbService.getUser(userName);
+    print("user$user");
+
+    if (user != null) {
+      print("user" + user.userName);
+
+      return true;
+
+    }
+    print("end ");
+    return false;
 
   }
+//  Future checkUser() async {
+//    var user = await Firestore.instance
+//        .collection('users')
+//        .document(userNameController.text)
+//        .get();
+//    return user.exists;
+//  }
 
   List data = [];
   @override
@@ -140,31 +148,22 @@ class SignUpScreenState extends State<SignUpScreen> {
         autofocus: true,
         keyboardType: TextInputType.name,
         validator: (value) {
-          String msg="";
           if (value.isEmpty) {
-            msg = 'Please enter some text';
+           return 'Please enter some text';
           }
           else {
-            Future<UserModel> user = _checkIfUserExist(value);
-
-            if(user!=null)
-              {
-
-              }
-              user.then((value) {
-                print("user$value");
-              msg ="Already exist";
-
-            });
-
+//            Future<bool> user = _checkIfUserExist(value);
+//              user.then((value) {
+//                print("user$value");
+//             return "Already exist";
+//                if (await checkUser())
+//                return 'Username is already taken.';
+   //         }
+      //    );
           }
-          if(msg.isEmpty)
-            {
-              return null;
-            }
-          return msg;
-         // return null;
+         return null;
         },
+       // controller: userNameController ,
         style: TextStyle(color: Colors.black, fontFamily: 'SFUIDisplay'),
         onChanged: (value) {
           // userName = value;
@@ -174,7 +173,7 @@ class SignUpScreenState extends State<SignUpScreen> {
           userName = value;
         },
         decoration: InputDecoration(
-            labelText: S.of(context).emailLabelText,
+            labelText: S.of(context).UserNameLabelText,
             border: OutlineInputBorder(),
             prefixIcon: Icon(
               Icons.person,
@@ -251,7 +250,8 @@ class SignUpScreenState extends State<SignUpScreen> {
             _createUser();
             print("userName$userName");
             print("password$password");
-            Navigator.of(context).pushNamed(LogInForm.id);
+
+          //  Navigator.of(context).pushName;
             // _formKey.currentState.reset();
 
               SnackBar(
@@ -274,18 +274,12 @@ class SignUpScreenState extends State<SignUpScreen> {
             text: TextSpan(children: [
               TextSpan(
                   text: S.of(context).HaveAnAccount,
-                  style: TextStyle(
-                    fontFamily: 'SFUIDisplay',
-                    color: Colors.black,
-                    fontSize: 15,
-                  )),
+                  style:beforeActionText,
+              ),
               TextSpan(
                   text: S.of(context).buttonTitleSignIn,
-                  style: TextStyle(
-                    fontFamily: 'SFUIDisplay',
-                    color: Colors.blueAccent,
-                    fontSize: 15,
-                  ))
+                  style:ActionText,
+              ),
             ]),
           ),
           onTap: () {
