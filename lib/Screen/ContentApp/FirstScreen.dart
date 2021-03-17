@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/API/ApiServices.dart';
 import 'package:shopping_app/API/ProductModel.dart';
+import 'package:shopping_app/Screen/ContentApp/ProductsDetailsScreen.dart';
 import 'package:shopping_app/Screen/ContentDrawerItem/AboutAppScreen.dart';
 import 'package:shopping_app/Screen/ContentDrawerItem/MyActivitiesScreen.dart';
 import 'package:shopping_app/Screen/ContentDrawerItem/MyCartScreen.dart';
@@ -38,10 +39,11 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin  
     controller.dispose();
     super.dispose();
   }
-void apiContent()async
+ apiContent() async
 {
   ApiServices apiServices = ApiServices();
   List<Product> product = await apiServices.fetchProducts();
+  return product;
 
 }
 
@@ -149,7 +151,7 @@ void apiContent()async
       ],
     );
     return DefaultTabController(
-      length: 6,
+      length:4,
       child: Scaffold(
         appBar: AppBar(
           title: Text(
@@ -159,26 +161,67 @@ void apiContent()async
           backgroundColor: ColorApp,
           bottom: TabBar(
             tabs: [
-              Tab(icon: Icon(Icons.directions_car),
+              Tab(
+                child: Text(
+                    "Electronics",
+                  style: tabBarTextStyle,
+                ),
+
+              ),
+              Tab(
+                child: Text(
+                  "Jewelery",
+                  style: tabBarTextStyle,
+                ),
 
 
               ),
-              Tab(icon: Icon(Icons.directions_transit)),
-              Tab(icon: Icon(Icons.directions_bike)),
-              Tab(icon: Icon(Icons.directions_car)),
-              Tab(icon: Icon(Icons.directions_transit)),
-              Tab(icon: Icon(Icons.directions_car)),
+              Tab(
+                child: Text(
+                  "Man clothing",
+                  style: tabBarTextStyle,
+                ),
+
+
+              ),
+              Tab(
+                child: Text(
+                  "Women clothing",
+                  style: tabBarTextStyle,
+                ),
+              ),
 
             ],
           ),
         ),
         body: TabBarView(
           children: [
-            Tab(icon: Icon(Icons.directions_car)),
+            Tab(
+              child: GestureDetector(
+                child: Card(
+                  child: Column(
+                    children: [
+                      Image(image: AssetImage("images/german.png")),
+                      Text("ttttt"),
+                      Text("gggggg"),
+                    ],
+                  ),
+                ),
+                onTap: ()
+                {
+                  setState(() {
+                    Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProductsDetailsScreen(image:"images/german.png",title:"tttt",description: "gff",category: "mmm",price: "20.0",),
+              ),
+                    );
+                  });
+                },
+              ),
+            ),
             Tab(icon: Icon(Icons.directions_transit)),
             Tab(icon: Icon(Icons.directions_bike)),
-            Tab(icon: Icon(Icons.directions_car)),
-            Tab(icon: Icon(Icons.directions_transit)),
             Tab(
 
             child:  CircularProgressIndicator(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/Model/DatabaseServce.dart';
 import 'package:shopping_app/Model/User.dart';
-import 'package:shopping_app/Screen/ContentApp/Drawer.dart';
 import 'package:shopping_app/Screen/ContentApp/FirstScreen.dart';
 import 'package:shopping_app/Screen/FormScreens/SignUpForm.dart';
 import 'package:shopping_app/generated/l10n.dart';
@@ -101,7 +100,6 @@ class _LogInFormState extends State<LogInForm> {
         return "Password should be minimum 7 characters";
       // ignore: unrelated_type_equality_checks
       if(_getUserDetails(userName)==1)
-
           {
            return"username / password wrong" ;
 
@@ -117,7 +115,7 @@ class _LogInFormState extends State<LogInForm> {
     });
   }
 
-  Widget _buildUserName() {
+  Widget _buildUserName(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: TextFormField(
@@ -154,7 +152,7 @@ class _LogInFormState extends State<LogInForm> {
     );
   }
 
-  Widget _buildPassword() {
+  Widget _buildPassword(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
@@ -183,7 +181,7 @@ class _LogInFormState extends State<LogInForm> {
     );
   }
 
-  Widget _buildSubmit() {
+  Widget _buildSubmit(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: SubmitButton(
@@ -196,7 +194,7 @@ class _LogInFormState extends State<LogInForm> {
            Navigator.pushAndRemoveUntil(
                context,
                MaterialPageRoute(
-                   builder: (context) => LightDrawerPage()),
+                   builder: (context) => MainScreen()),
                    (route) => false);
 
               SnackBar(
@@ -210,7 +208,7 @@ class _LogInFormState extends State<LogInForm> {
     );
   }
 
-  Widget _buildForgotPassword() {
+  Widget _buildForgotPassword(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(top: 8.0),
       child: Center(
@@ -231,7 +229,7 @@ class _LogInFormState extends State<LogInForm> {
     );
   }
 
-  Widget _buildSignUp() {
+  Widget _buildSignUp(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(top: 8.0),
       child: Center(
@@ -271,11 +269,11 @@ class _LogInFormState extends State<LogInForm> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    _buildUserName(),
-                    _buildPassword(),
-                    _buildSubmit(),
-                    _buildForgotPassword(),
-                    _buildSignUp(),
+                    _buildUserName(context),
+                    _buildPassword(context),
+                    _buildSubmit(context),
+                    _buildForgotPassword(context),
+                    _buildSignUp(context),
                   ],
                 ),
               ),

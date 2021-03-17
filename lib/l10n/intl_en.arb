@@ -6,7 +6,7 @@
   "AppBarSignUpScreen": "Sign up",
   "AppBarCodeScreen": "Code Screen",
 
-  "emailLabelText": "Email Address",
+  "UserNameLabelText": "Username",
   "PasswordLabelText": "Password",
   "SnackBarLogInScreen": "Processing Data",
   "SubmitScreen": "Submit",
@@ -22,7 +22,7 @@
   "AlertDialogContent": "Are you sure you want to abandon the form? Any changes will be lost.",
   "LogOut":"Log out",
 
-  "MainPage": "Main Page",
+  "MainPage": "Products by categories",
   "Setting": "Settings",
   "MyCart": "My Cart",
   "About":"About",
@@ -34,5 +34,8 @@
   "HaveAnAccount": "Have an account?",
   "FlutterStore": "Flutter Store",
   "ShareThisApp": "share this app",
-  "Version": "Version"
+  "Version": "Version",
+  "English": "English",
+  "Arabic": "Arabic",
+  "German": "German"
 }

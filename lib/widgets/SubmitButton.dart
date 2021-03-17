@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_app/widgets/Constants.dart';
 
 class SubmitButton extends StatelessWidget {
   SubmitButton({this.title, this.colour, @required this.onPressed});
@@ -21,9 +22,7 @@ class SubmitButton extends StatelessWidget {
           height: 42.0,
           child: Text(
             title,
-            style: TextStyle(
-              color: Colors.white,
-            ),
+            style: kTextStyle,
           ),
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/Screen/SettingScreens/ChangeLanguage.dart';
 import 'package:shopping_app/Screen/SettingScreens/ChangePassword.dart';
+import 'package:shopping_app/Screen/SplashScreens/SplashScreen.dart';
 import 'package:shopping_app/generated/l10n.dart';
 import 'package:shopping_app/widgets/Constants.dart';
 
@@ -11,6 +12,7 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+  String _character="";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +23,7 @@ class _SettingScreenState extends State<SettingScreen> {
           ),
           backgroundColor: ColorApp,
         ),
-        body: ListView(
+        body: Column(
           children:  <Widget>[
 
             Card(
@@ -39,6 +41,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 {
                   setState(() {
                     Navigator.of(context).pushNamed(ChangePassword.id);
+
                   });
                 },
               ),
@@ -57,7 +60,8 @@ class _SettingScreenState extends State<SettingScreen> {
                 onTap: ()
                 {
                   setState(() {
-                    Navigator.of(context).pushNamed(ChangeLanguage.id);
+                 Navigator.of(context).pushNamed(ChangeLanguage.id);
+
                   });
                 },
               ),
