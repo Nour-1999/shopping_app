@@ -26,12 +26,13 @@ dependencies:
   intl:
   flutter_localizations:
     sdk: flutter
-  splashscreen:
+
   regexpattern:
   sqflite:
   cupertino_icons: ^1.0.0
   pinput:
   http:
+  intro_views_flutter:
 dev_dependencies:
   flutter_test:
     sdk: flutter
