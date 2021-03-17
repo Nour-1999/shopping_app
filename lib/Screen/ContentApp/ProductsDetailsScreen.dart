@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/widgets/Constants.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class ProductsDetailsScreen extends StatelessWidget {
   ProductsDetailsScreen(
       {@required this.image,
@@ -48,17 +48,61 @@ class ProductsDetailsScreen extends StatelessWidget {
         ),
         backgroundColor: ColorApp,
         onPressed: () {
-          AlertDialog(
-            actions: [
-              Row(
-                children: [
+          showDialog<bool>(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                    content: Text(
+                      "",
+                    ),
+                    actions: <Widget>[
+                      Row(
+                        children: [
+                          FlatButton(
+                            child: RawMaterialButton(
+                              onPressed: ()
+                              {
 
+                              },
+                              child: Icon(FontAwesomeIcons.plus,
+                              color: Colors.white,
+                              ),
+                              elevation: 0.0,
+                              shape: CircleBorder(),
+                              constraints: BoxConstraints.tightFor(
+                                width: 40.0,
+                                height: 40.0,
+                              ),
+                              fillColor: ColorApp,
+                            ),
+                            onPressed: () {},
+                            textColor: ColorApp,
+                          ),
+                          FlatButton(
+                            child: RawMaterialButton(
+                              onPressed: ()
+                              {
 
-                ],
-              )
-
-            ],
-
+                              },
+                              child: Icon(FontAwesomeIcons.minus,
+                                color: Colors.white,),
+                              elevation: 0.0,
+                              shape: CircleBorder(),
+                              constraints: BoxConstraints.tightFor(
+                                width: 40.0,
+                                height: 40.0,
+                              ),
+                              fillColor: ColorApp,
+                            ),
+                            textColor: ColorApp,
+                            onPressed: () {},
+                          ),
+                        ],
+                      )
+                    ],
+                  ) ??
+                  false;
+            },
           );
         },
       ),

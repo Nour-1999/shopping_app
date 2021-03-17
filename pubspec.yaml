@@ -33,6 +33,7 @@ dependencies:
   pinput:
   http:
   intro_views_flutter:
+  font_awesome_flutter:
 dev_dependencies:
   flutter_test:
     sdk: flutter
