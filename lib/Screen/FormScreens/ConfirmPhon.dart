@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 import 'package:shopping_app/Screen/ContentApp/FirstScreen.dart';

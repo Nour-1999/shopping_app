@@ -143,7 +143,6 @@ class _LogInFormState extends State<LogInForm> {
           print(value);
         },
         decoration: InputDecoration(
-            labelText: S.of(context).UserNameLabelText,
             border: OutlineInputBorder(),
             prefixIcon: Icon(
               Icons.person,

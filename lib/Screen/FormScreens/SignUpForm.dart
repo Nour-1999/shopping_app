@@ -173,7 +173,6 @@ class SignUpScreenState extends State<SignUpScreen> {
           userName = value;
         },
         decoration: InputDecoration(
-            labelText: S.of(context).UserNameLabelText,
             border: OutlineInputBorder(),
             prefixIcon: Icon(
               Icons.person,
