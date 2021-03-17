@@ -166,23 +166,18 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin  
                     "Electronics",
                   style: tabBarTextStyle,
                 ),
-
               ),
               Tab(
                 child: Text(
                   "Jewelery",
                   style: tabBarTextStyle,
                 ),
-
-
               ),
               Tab(
                 child: Text(
                   "Man clothing",
                   style: tabBarTextStyle,
                 ),
-
-
               ),
               Tab(
                 child: Text(
