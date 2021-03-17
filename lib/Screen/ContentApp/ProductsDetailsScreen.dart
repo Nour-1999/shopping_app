@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/widgets/Constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 class ProductsDetailsScreen extends StatelessWidget {
   ProductsDetailsScreen(
       {@required this.image,
@@ -60,12 +61,10 @@ class ProductsDetailsScreen extends StatelessWidget {
                         children: [
                           FlatButton(
                             child: RawMaterialButton(
-                              onPressed: ()
-                              {
-
-                              },
-                              child: Icon(FontAwesomeIcons.plus,
-                              color: Colors.white,
+                              onPressed: () {},
+                              child: Icon(
+                                FontAwesomeIcons.plus,
+                                color: Colors.white,
                               ),
                               elevation: 0.0,
                               shape: CircleBorder(),
@@ -80,12 +79,11 @@ class ProductsDetailsScreen extends StatelessWidget {
                           ),
                           FlatButton(
                             child: RawMaterialButton(
-                              onPressed: ()
-                              {
-
-                              },
-                              child: Icon(FontAwesomeIcons.minus,
-                                color: Colors.white,),
+                              onPressed: () {},
+                              child: Icon(
+                                FontAwesomeIcons.minus,
+                                color: Colors.white,
+                              ),
                               elevation: 0.0,
                               shape: CircleBorder(),
                               constraints: BoxConstraints.tightFor(
