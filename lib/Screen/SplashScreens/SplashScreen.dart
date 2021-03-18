@@ -4,7 +4,6 @@ import 'package:intro_views_flutter/Models/page_view_model.dart';
 import 'package:intro_views_flutter/intro_views_flutter.dart';
 import 'package:shopping_app/Screen/FormScreens/LogInScreen.dart';
 
-
 class SplashScreenClass extends StatefulWidget {
   static const String id = 'SplashScreen';
   @override
@@ -87,7 +86,9 @@ class _SplashScreenClassState extends State<SplashScreenClass> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => LogInForm(),
+                builder: (context) {
+                return  LogInForm();
+                },
 
               ), //MaterialPageRoute
             );
