@@ -81,6 +81,7 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
               onTap: () {
                 setState(() {
                   _character = "Arabic";
+
                 });
               },
             ),
@@ -108,6 +109,7 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
               onTap: () {
                 setState(() {
                   _character = "German";
+
                 });
               },
             ),
