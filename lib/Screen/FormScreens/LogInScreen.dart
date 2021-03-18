@@ -162,6 +162,7 @@ class _LogInFormState extends State<LogInForm> {
         onChanged: (value) {
         print(value);
         },
+
         style: TextStyle(color: Colors.black, fontFamily: 'SFUIDisplay'),
         decoration: InputDecoration(
             labelText: S.of(context).PasswordLabelText,
@@ -169,7 +170,6 @@ class _LogInFormState extends State<LogInForm> {
             prefixIcon: Icon(
               Icons.lock_outline,
               color: ColorIcons,
-          //    Color(0xFF1D1E33),
             ),
             labelStyle: TextStyle(fontSize: 15)),
         validator: (value) {

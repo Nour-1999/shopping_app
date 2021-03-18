@@ -85,11 +85,11 @@ class S {
     );
   }
 
-  /// `Email Address`
-  String get emailLabelText {
+  /// `Username`
+  String get UserNameLabelText {
     return Intl.message(
-      'Email Address',
-      name: 'emailLabelText',
+      'Username',
+      name: 'UserNameLabelText',
       desc: '',
       args: [],
     );
@@ -215,10 +215,10 @@ class S {
     );
   }
 
-  /// `Main Page`
+  /// `Products by categories`
   String get MainPage {
     return Intl.message(
-      'Main Page',
+      'Products by categories',
       name: 'MainPage',
       desc: '',
       args: [],
@@ -344,6 +344,36 @@ class S {
       args: [],
     );
   }
+
+  /// `English`
+  String get English {
+    return Intl.message(
+      'English',
+      name: 'English',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Arabic`
+  String get Arabic {
+    return Intl.message(
+      'Arabic',
+      name: 'Arabic',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `German`
+  String get German {
+    return Intl.message(
+      'German',
+      name: 'German',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -353,6 +383,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
       Locale.fromSubtags(languageCode: 'ar'),
+      Locale.fromSubtags(languageCode: 'gr'),
     ];
   }
 
