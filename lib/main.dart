@@ -28,28 +28,22 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-
-        localizationsDelegates: [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          S.delegate
-        ],
-      supportedLocales: S.delegate.supportedLocales,
-      initialRoute:  LogInForm.id,
         routes: {
 
       SplashScreenClass.id: (context) => SplashScreenClass(),
-      LogInForm.id: (context) => LogInForm(),
-      SignUpScreen.id: (context) => SignUpScreen(),
-      ChangePassword.id: (context) => ChangePassword(),
-      MainScreen.id: (context) => MainScreen(),
-      SettingScreen.id: (context) => SettingScreen(),
-      MyCartScreen.id: (context) => MyCartScreen(),
-      MyPurchasesScreen.id: (context) => MyPurchasesScreen(),
-      MyActivitiesScreen.id: (context) => MyActivitiesScreen(),
-      AboutAppScreen.id: (context) => AboutAppScreen(),
-      ChangeLanguage.id:(context)=>ChangeLanguage(),
-    },
-);
+          LogInForm.id: (context) => LogInForm(),
+          SignUpScreen.id: (context) => SignUpScreen(),
+          ChangePassword.id: (context) => ChangePassword(),
+          MainScreen.id: (context) => MainScreen(),
+          SettingScreen.id: (context) => SettingScreen(),
+          MyCartScreen.id: (context) => MyCartScreen(),
+          MyPurchasesScreen.id: (context) => MyPurchasesScreen(),
+          MyActivitiesScreen.id: (context) => MyActivitiesScreen(),
+          AboutAppScreen.id: (context) => AboutAppScreen(),
+          ChangeLanguage.id:(context)=>ChangeLanguage(),
+        },
+
+        supportedLocales: S.delegate.supportedLocales,
+        initialRoute:  SplashScreenClass.id);
   }
 }

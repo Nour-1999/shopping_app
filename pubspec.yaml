@@ -26,7 +26,7 @@ dependencies:
   intl:
   flutter_localizations:
     sdk: flutter
-
+  splashscreen:
   regexpattern:
   sqflite:
   cupertino_icons: ^1.0.0
@@ -34,6 +34,7 @@ dependencies:
   http:
   intro_views_flutter:
   font_awesome_flutter:
+  animated_splash_screen:
 dev_dependencies:
   flutter_test:
     sdk: flutter

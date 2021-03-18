@@ -179,7 +179,6 @@ return null;
           print("value$value");
         },
         decoration: InputDecoration(
-            labelText: S.of(context).UserNameLabelText,
             border: OutlineInputBorder(),
             prefixIcon: Icon(
               Icons.person,
