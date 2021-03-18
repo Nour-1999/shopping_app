@@ -29,7 +29,7 @@ class SignUpScreenState extends State<SignUpScreen> {
   String password;
   String confirmPassword;
   bool _formChanged = false;
-  UserModel usernameValidator ;
+  bool usernameValidator = false;
   DatabaseService dbService = DatabaseService();
 
   void _createUser() async {
@@ -41,17 +41,16 @@ class SignUpScreenState extends State<SignUpScreen> {
     print("id $id");
   }
 
- Future<UserModel>  _checkIfUserExist(String userName) async {
+ Future<bool>  _checkIfUserExist(String userName) async {
      var user = await dbService.getUser(userName);
     print("user$user");
 
     if (user != null) {
       print("user" + user.userName);
-      return user;
+      return true;
 
     }
-
-    return null;
+    return false;
 
   }
 //  Future checkUser() async {
@@ -152,9 +151,12 @@ class SignUpScreenState extends State<SignUpScreen> {
            return 'Please enter some text';
           }
           else {
+            if(usernameValidator)
+              {
+                return 'Username is already taken.';
+              }
          //    return usernameValidator;
 
-          return null;
 //              user.then((value) {
 //                print("user$value");
 //             return "Already exist";
@@ -169,11 +171,12 @@ return null;
 
         style: TextStyle(color: Colors.black, fontFamily: 'SFUIDisplay'),
         onChanged: (value) {
-          // userName = value;
+          userName = value;
           print("value$value");
         },
         onSaved: (value) {
-          userName = value;
+          //userName = value;
+          print("value$value");
         },
         decoration: InputDecoration(
             labelText: S.of(context).UserNameLabelText,
@@ -194,9 +197,10 @@ return null;
         obscureText: true,
         onChanged: (value) {
           print("onChanged $value");
+         // password = value;
         },
         onSaved: (value) {
-          password = value;
+          //password = value;
         },
         style: TextStyle(color: Colors.black, fontFamily: 'SFUIDisplay'),
         decoration: InputDecoration(
@@ -247,11 +251,13 @@ return null;
       padding: const EdgeInsets.all(8.0),
       child: SubmitButton(
         title: S.of(context).SubmitScreen,
-        onPressed: ()async {
+        onPressed: () async {
           var response = await _checkIfUserExist(userName);
 
           setState(() {
             this.usernameValidator = response;
+            print("usernameValidator$usernameValidator");
+            print("response$response");
           });
           if (_formKey.currentState.validate()) {
             _formKey.currentState.save();

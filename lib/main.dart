@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
           S.delegate
         ],
       supportedLocales: S.delegate.supportedLocales,
-      initialRoute:  SplashScreenClass.id,
+      initialRoute:  LogInForm.id,
         routes: {
 
       SplashScreenClass.id: (context) => SplashScreenClass(),
