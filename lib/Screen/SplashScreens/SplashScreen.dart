@@ -7,11 +7,11 @@ import 'package:splashscreen/splashscreen.dart';
 
 class SplashScreenClass extends StatefulWidget {
   static const String id = 'SplashScreen';
-
   @override
   _SplashScreenClassState createState() => new _SplashScreenClassState();
 }
 class _SplashScreenClassState extends State<SplashScreenClass> {
+  LogInForm _logInForm = new LogInForm();
   @override
   final pages = [
     PageViewModel(
@@ -83,7 +83,7 @@ class _SplashScreenClassState extends State<SplashScreenClass> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => LogInForm(),
+                builder: (context) => _logInForm,
               ), //MaterialPageRoute
             );
           },
