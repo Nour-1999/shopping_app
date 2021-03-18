@@ -99,7 +99,9 @@ class LightDrawerPage extends StatelessWidget {
           Icons.power_settings_new,
           color: active,
         ),
-        onPressed: () {},
+        onPressed: () {
+
+        },
       ),
     ),
 
@@ -143,23 +145,23 @@ class LightDrawerPage extends StatelessWidget {
                 AssetImage("images/stains_dark_texture_129779_300x168.jpg"),
                 fit: BoxFit.cover)),
       ),
-      SizedBox(height: 5.0),
+ //     SizedBox(height: 5.0),
 
       /// ---------------------------
       /// Building header title for drawer .
       /// ---------------------------
 
-      Text(
-        "erika costell",
-        style: TextStyle(
-            color: Colors.black,
-            fontSize: 18.0,
-            fontWeight: FontWeight.w600),
-      ),
-      Text(
-        "@erika07",
-        style: TextStyle(color: active, fontSize: 16.0),
-      ),
+//      Text(
+//        "erika costell",
+//        style: TextStyle(
+//            color: Colors.black,
+//            fontSize: 18.0,
+//            fontWeight: FontWeight.w600),
+//      ),
+//      Text(
+//        "@erika07",
+//        style: TextStyle(color: active, fontSize: 16.0),
+//      ),
 
       /// ---------------------------
       /// Building items list  for drawer .

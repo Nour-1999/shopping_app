@@ -165,7 +165,8 @@ class SignUpScreenState extends State<SignUpScreen> {
           }
 return null;
         },
-       // controller: userNameController ,
+
+
         style: TextStyle(color: Colors.black, fontFamily: 'SFUIDisplay'),
         onChanged: (value) {
           // userName = value;
