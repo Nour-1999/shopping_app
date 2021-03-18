@@ -1,9 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intro_views_flutter/Models/page_view_model.dart';
 import 'package:intro_views_flutter/intro_views_flutter.dart';
 import 'package:shopping_app/Screen/FormScreens/LogInScreen.dart';
 
-import 'package:splashscreen/splashscreen.dart';
 
 class SplashScreenClass extends StatefulWidget {
   static const String id = 'SplashScreen';
@@ -12,6 +12,7 @@ class SplashScreenClass extends StatefulWidget {
 }
 class _SplashScreenClassState extends State<SplashScreenClass> {
   LogInForm _logInForm = new LogInForm();
+
   @override
   final pages = [
     PageViewModel(
@@ -79,13 +80,19 @@ class _SplashScreenClassState extends State<SplashScreenClass> {
           pages,
           showNextButton: true,
           showBackButton: true,
+
           onTapDoneButton: () {
+
+          setState(() {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => _logInForm,
+                builder: (context) => LogInForm(),
+
               ), //MaterialPageRoute
             );
+          });
+
           },
           pageButtonTextStyles: TextStyle(
             color: Colors.white,

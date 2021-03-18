@@ -29,7 +29,8 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         routes: {
-          SplashScreenClass.id: (context) => SplashScreenClass(),
+
+      SplashScreenClass.id: (context) => SplashScreenClass(),
           LogInForm.id: (context) => LogInForm(),
           SignUpScreen.id: (context) => SignUpScreen(),
           ChangePassword.id: (context) => ChangePassword(),
@@ -47,6 +48,6 @@ class MyApp extends StatelessWidget {
           S.delegate
         ],
         supportedLocales: S.delegate.supportedLocales,
-        initialRoute: SplashScreenClass.id);
+        initialRoute:  LogInForm.id);
   }
 }

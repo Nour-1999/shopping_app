@@ -6,7 +6,7 @@
   "AppBarSignUpScreen": "إنشاء حساب",
   "AppBarCodeScreen": "إضافة الرمز",
 
-  "emailLabelText": "عنوان بريد الكتروني",
+  "UserNameLabelText": "اسم المستخدم",
   "PasswordLabelText": "كلمة المرور",
   "SnackBarLogInScreen": " معالجة البيانات",
   "SubmitScreen": "تأكيد",
@@ -22,7 +22,7 @@
   "AlertDialogContent": " هل أنت متأكد أنك تريد التخلي عن النموذج؟ ستفقد أية تغييرات.",
 
   "LogOut":"تسجيل خروج",
-  "MainPage": "الصفحة الرئيسية",
+  "MainPage": "المنتجات حسب الفئات",
   "Setting": "الضبط",
   "MyCart": "سلة مشترياتي",
   "About":"حول",
@@ -35,5 +35,8 @@
   "HaveAnAccount": "هل لديك حساب؟",
   "FlutterStore": "متجر Flutter",
   "ShareThisApp": "مشاركة هذا التطبيق",
-  "Version": "الإصدار"
+  "Version": "الإصدار",
+  "English": "أنكليزي",
+  "Arabic": "عربي",
+  "German": "ألماني"
 }

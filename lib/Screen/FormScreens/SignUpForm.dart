@@ -29,6 +29,7 @@ class SignUpScreenState extends State<SignUpScreen> {
   String password;
   String confirmPassword;
   bool _formChanged = false;
+  UserModel usernameValidator ;
   DatabaseService dbService = DatabaseService();
 
   void _createUser() async {
@@ -40,18 +41,17 @@ class SignUpScreenState extends State<SignUpScreen> {
     print("id $id");
   }
 
-  Future<bool> _checkIfUserExist(String userName) async {
+ Future<UserModel>  _checkIfUserExist(String userName) async {
      var user = await dbService.getUser(userName);
     print("user$user");
 
     if (user != null) {
       print("user" + user.userName);
-
-      return true;
+      return user;
 
     }
-    print("end ");
-    return false;
+
+    return null;
 
   }
 //  Future checkUser() async {
@@ -152,7 +152,9 @@ class SignUpScreenState extends State<SignUpScreen> {
            return 'Please enter some text';
           }
           else {
-//            Future<bool> user = _checkIfUserExist(value);
+         //    return usernameValidator;
+
+          return null;
 //              user.then((value) {
 //                print("user$value");
 //             return "Already exist";
@@ -161,7 +163,7 @@ class SignUpScreenState extends State<SignUpScreen> {
    //         }
       //    );
           }
-         return null;
+return null;
         },
        // controller: userNameController ,
         style: TextStyle(color: Colors.black, fontFamily: 'SFUIDisplay'),
@@ -243,7 +245,12 @@ class SignUpScreenState extends State<SignUpScreen> {
       padding: const EdgeInsets.all(8.0),
       child: SubmitButton(
         title: S.of(context).SubmitScreen,
-        onPressed: () {
+        onPressed: ()async {
+          var response = await _checkIfUserExist(userName);
+
+          setState(() {
+            this.usernameValidator = response;
+          });
           if (_formKey.currentState.validate()) {
             _formKey.currentState.save();
             _createUser();

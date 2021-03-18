@@ -33,6 +33,10 @@ const kTextStyle = TextStyle(
   color: Color(0xFFFFFFFF),
 );
 
+const tabBarTextStyle = TextStyle(
+  fontSize: 11.0,
+  color: Color(0xFFFFFFFF),
+);
 
 const kLargeButtonTextStyle = TextStyle(
   fontSize: 25.0,
@@ -40,11 +44,6 @@ const kLargeButtonTextStyle = TextStyle(
 );
 
 
-const kResultTextStyle = TextStyle(
-  color: Color(0xFF24D876),
-  fontSize: 22.0,
-  fontWeight: FontWeight.bold,
-);
 
 const kBodyTextStyle = TextStyle(
   fontSize: 22.0,

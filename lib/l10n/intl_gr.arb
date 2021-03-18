@@ -1,0 +1,41 @@
+{
+  "buttonTitleSignIn": "Anmelden",
+  "buttonTitleSignUp": "Anmelden",
+
+  "AppBarLogInScreen": "Anmelden",
+  "AppBarSignUpScreen": "Anmelden",
+  "AppBarCodeScreen": "Code Screen",
+
+  "UserNameLabelText": "Benutzername",
+  "PasswordLabelText": "Passwort",
+  "SnackBarLogInScreen": "Daten verarbeiten",
+  "SubmitScreen": "Submit",
+  "ForgotYourPassword": "Passwort vergessen?",
+  "phoneNumberLabel": "Telefonnummer",
+
+  "NewPasswordLabelText": "Neues Passwort",
+  "ConfirmPasswordLabelText": "Passwort bestätigen",
+  "ChangePasswordLabelText": "Passwort ändern",
+
+  "Cancel": "Abbrechen",
+  "Abandon": "Abandon",
+  "AlertDialogContent": "Möchten Sie das Formular wirklich verlassen? Alle Änderungen gehen verloren.",
+  "LogOut": "Abmelden",
+
+  "MainPage": "Produkte nach Kategorien",
+  "Setting": "Einstellungen",
+  "MyCart": "Mein Einkaufswagen",
+  "About":" über",
+  "MyPurchases": "Meine Einkäufe",
+  "MyActivities": "Meine Aktivitäten",
+  "ChangeLanguage": "Sprache ändern",
+  "OldPassword": "Altes Passwort",
+  "DoNotHaveAnAccount": "Sie haben noch kein Konto?",
+  "HaveAnAccount": "Haben Sie ein Konto?",
+  "FlutterStore": "Flutter Store",
+  "ShareThisApp": "Diese App teilen",
+  "Version": "Version",
+  "English": "Englisch",
+  "Arabic": "Arabisch",
+  "German": "Deutsch"
+}

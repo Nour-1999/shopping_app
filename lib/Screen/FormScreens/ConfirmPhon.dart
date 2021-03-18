@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 import 'package:shopping_app/Screen/ContentApp/FirstScreen.dart';
-import 'package:shopping_app/Screen/FormScreens/LogInScreen.dart';
-import 'package:shopping_app/widgets/Constants.dart';
-import 'package:shopping_app/widgets/SubmitButton.dart';
-
 
 class OTPScreen extends StatefulWidget {
   final String phone;
@@ -19,86 +15,79 @@ class _OTPScreenState extends State<OTPScreen> {
   final TextEditingController _pinPutController = TextEditingController();
   final FocusNode _pinPutFocusNode = FocusNode();
   final BoxDecoration pinPutDecoration = BoxDecoration(
+    color: const Color.fromRGBO(43, 46, 66, 1),
     borderRadius: BorderRadius.circular(10.0),
     border: Border.all(
-      color:ColorApp,
+      color: const Color.fromRGBO(126, 203, 224, 1),
     ),
   );
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldkey,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 30.0, right: 30.0, top: 30.0, bottom: 10),
-              child: PinPut(
-                fieldsCount: 6,
-                textStyle: kTextStyle,
-                eachFieldWidth: 13.0,
-                eachFieldHeight: 8.0,
-                focusNode: _pinPutFocusNode,
-                controller: _pinPutController,
-                submittedFieldDecoration: pinPutDecoration,
-                selectedFieldDecoration: pinPutDecoration,
-                followingFieldDecoration: pinPutDecoration,
-                pinAnimationType: PinAnimationType.fade,
-//                onSubmit: (pin) async {
-//                  try {
-//                    await FirebaseAuth.instance
-//                        .signInWithCredential(PhoneAuthProvider.credential(
-//                        verificationId: _verificationCode, smsCode: pin))
-//                        .then((value) async {
-//                      if (value.user != null) {
-//                        Navigator.pushAndRemoveUntil(
-//                            context,
-//                            MaterialPageRoute(
-//                                builder: (context) => LogInForm()),
-//                                (route) => false);
-//                      }
-//                    });
-//                  } catch (e) {
-//                    FocusScope.of(context).unfocus();
-//                    _scaffoldkey.currentState.showSnackBar(
-//                      SnackBar(
-//                        content: Text('invalid OTP'),
-//                      ),
-//                    );
-//                  }
-//                },
+      appBar: AppBar(
+        title: Text('OTP Verification'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.next_plan),
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => MainScreen()),
+                      (route) => false);
+            },
+          )
+        ],
+      ),
+      body: Column(
+        children: [
+          Container(
+            margin: EdgeInsets.only(top: 40),
+            child: Center(
+              child: Text(
+                'Verify +963-${widget.phone}',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
               ),
             ),
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 220, bottom: 80),
-                child: Text(
-                  "Resend code",
-                  style: ActionText,
-                ),
-              ),
-            ),
-            SubmitButton(
-              title: "Verify",
-              onPressed: () {
-                ///Test
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => MainScreen()),
-                        (route) => false);
-
-                ///Test
-              //  _verifyPhone();
+          ),
+          Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: PinPut(
+              fieldsCount: 6,
+              textStyle: const TextStyle(fontSize: 25.0, color: Colors.white),
+              eachFieldWidth: 40.0,
+              eachFieldHeight: 55.0,
+              focusNode: _pinPutFocusNode,
+              controller: _pinPutController,
+              submittedFieldDecoration: pinPutDecoration,
+              selectedFieldDecoration: pinPutDecoration,
+              followingFieldDecoration: pinPutDecoration,
+              pinAnimationType: PinAnimationType.fade,
+              onSubmit: (pin) async {
+//                try {
+//                  await FirebaseAuth.instance
+//                      .signInWithCredential(PhoneAuthProvider.credential(
+//                      verificationId: _verificationCode, smsCode: pin))
+//                      .then((value) async {
+//                    if (value.user != null) {
+                     Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => MainScreen()),
+                              (route) => false);
+//                    }
+//                  });
+//                } catch (e) {
+//                  FocusScope.of(context).unfocus();
+//                  _scaffoldkey.currentState
+//                      .showSnackBar(SnackBar(content: Text('invalid OTP')));
+//                }
               },
             ),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
-
 //  _verifyPhone() async {
 //    await FirebaseAuth.instance.verifyPhoneNumber(
 //        phoneNumber: '+963${widget.phone}',
@@ -109,14 +98,14 @@ class _OTPScreenState extends State<OTPScreen> {
 //            if (value.user != null) {
 //              Navigator.pushAndRemoveUntil(
 //                  context,
-//                  MaterialPageRoute(builder: (context) => MainScreen()),
+//                  MaterialPageRoute(builder: (context) => Home()),
 //                      (route) => false);
 //            }
 //          });
 //        },
-////        verificationFailed: (FirebaseAuthException e) {
-////          print(e.message);
-////        },
+//        verificationFailed: (FirebaseAuthException e) {
+//          print(e.message);
+//        },
 //        codeSent: (String verficationID, int resendToken) {
 //          setState(() {
 //            _verificationCode = verficationID;
@@ -129,11 +118,11 @@ class _OTPScreenState extends State<OTPScreen> {
 //        },
 //        timeout: Duration(seconds: 120));
 //  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    //_verifyPhone();
-  }
+//
+//  @override
+//  void initState() {
+//    // TODO: implement initState
+//    super.initState();
+//    _verifyPhone();
+//  }
 }
