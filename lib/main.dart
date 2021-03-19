@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:shopping_app/Screen/ContentApp/FirstScreen.dart';
-import 'package:shopping_app/Screen/ContentDrawerItem/AboutAppScreen.dart';
-import 'package:shopping_app/Screen/ContentDrawerItem/MyActivitiesScreen.dart';
-import 'package:shopping_app/Screen/ContentDrawerItem/MyCartScreen.dart';
-import 'package:shopping_app/Screen/ContentDrawerItem/MyPurchasesScreen.dart';
-import 'package:shopping_app/Screen/ContentDrawerItem/SettingScreen.dart';
-import 'package:shopping_app/Screen/FormScreens/LogInScreen.dart';
-import 'package:shopping_app/Screen/FormScreens/SignUpForm.dart';
-import 'package:shopping_app/Screen/SettingScreens/ChangeLanguage.dart';
-import 'package:shopping_app/Screen/SettingScreens/ChangePassword.dart';
-import 'package:shopping_app/Screen/SplashScreens/SplashScreen.dart';
 import 'package:shopping_app/generated/l10n.dart';
+import 'package:shopping_app/routs/ContentApp/FirstScreen.dart';
+import 'package:shopping_app/routs/ContentDrawerItem/AboutAppScreen.dart';
+import 'package:shopping_app/routs/ContentDrawerItem/MyActivitiesScreen.dart';
+import 'package:shopping_app/routs/ContentDrawerItem/MyCartScreen.dart';
+import 'package:shopping_app/routs/ContentDrawerItem/MyPurchasesScreen.dart';
+import 'package:shopping_app/routs/ContentDrawerItem/SettingScreen.dart';
+import 'package:shopping_app/routs/formRoutes/LogInScreen.dart';
+import 'package:shopping_app/routs/formRoutes/SignUpForm.dart';
+import 'package:shopping_app/routs/settingRout/ChangeLanguage.dart';
+import 'package:shopping_app/routs/settingRout/ChangePassword.dart';
+import 'package:shopping_app/routs/splashRout/SplashScreen.dart';
 
 
 void main() {

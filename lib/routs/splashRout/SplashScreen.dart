@@ -2,22 +2,22 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:shopping_app/Screen/ContentApp/FirstScreen.dart';
-import 'package:shopping_app/Screen/ContentDrawerItem/AboutAppScreen.dart';
-import 'package:shopping_app/Screen/ContentDrawerItem/MyActivitiesScreen.dart';
-import 'package:shopping_app/Screen/ContentDrawerItem/MyCartScreen.dart';
-import 'package:shopping_app/Screen/ContentDrawerItem/MyPurchasesScreen.dart';
-import 'package:shopping_app/Screen/ContentDrawerItem/SettingScreen.dart';
-import 'package:shopping_app/Screen/FormScreens/LogInScreen.dart';
-import 'package:shopping_app/Screen/FormScreens/SignUpForm.dart';
-import 'package:shopping_app/Screen/SettingScreens/ChangeLanguage.dart';
-import 'package:shopping_app/Screen/SettingScreens/ChangePassword.dart';
+import 'package:shopping_app/constant/Constants.dart';
+import 'package:shopping_app/routs/ContentApp/FirstScreen.dart';
+import 'package:shopping_app/routs/ContentDrawerItem/AboutAppScreen.dart';
+import 'package:shopping_app/routs/ContentDrawerItem/MyActivitiesScreen.dart';
+import 'package:shopping_app/routs/ContentDrawerItem/MyCartScreen.dart';
+import 'package:shopping_app/routs/ContentDrawerItem/MyPurchasesScreen.dart';
+import 'package:shopping_app/routs/ContentDrawerItem/SettingScreen.dart';
+import 'package:shopping_app/routs/formRoutes/LogInScreen.dart';
+import 'package:shopping_app/routs/formRoutes/SignUpForm.dart';
+import 'package:shopping_app/routs/settingRout/ChangeLanguage.dart';
+import 'package:shopping_app/routs/settingRout/ChangePassword.dart';
 import 'package:shopping_app/generated/l10n.dart';
-import 'package:shopping_app/widgets/Constants.dart';
 
 
 class SplashScreenClass extends StatefulWidget {
-  static const String id = 'SplashScreen';
+  static const String id = 'SplashScreenClass';
   @override
   _SplashScreenClassState createState() => new _SplashScreenClassState();
 }

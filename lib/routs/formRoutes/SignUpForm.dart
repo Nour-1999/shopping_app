@@ -1,48 +1,65 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+
+import 'package:regexpattern/regexpattern.dart';
 import 'package:shopping_app/Model/DatabaseServce.dart';
 import 'package:shopping_app/Model/User.dart';
-import 'package:shopping_app/Screen/ContentApp/FirstScreen.dart';
-import 'package:shopping_app/Screen/FormScreens/SignUpForm.dart';
+import 'package:shopping_app/routs/formRoutes/ConfirmPhon.dart';
+import 'package:shopping_app/routs/formRoutes/LogInScreen.dart';
 import 'package:shopping_app/generated/l10n.dart';
-import 'package:shopping_app/widgets/Constants.dart';
+import 'file:///C:/Users/ASUS/AndroidStudioProjects/shopping_app/lib/constant/Constants.dart';
 import 'package:shopping_app/widgets/ReuseForm.dart';
 import 'package:shopping_app/widgets/SubmitButton.dart';
 
-class LogInForm extends StatefulWidget {
-  static const String id = 'LogInForm';
+class SignUpScreen extends StatefulWidget {
+  static const String id = 'SignUpScreen';
 
   @override
-  _LogInFormState createState() => _LogInFormState();
+  SignUpScreenState createState() {
+    return SignUpScreenState();
+  }
 }
 
-
-
-
-class _LogInFormState extends State<LogInForm> {
+class SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _password = TextEditingController();
   FocusNode focusNode;
   String userName;
   String password;
+  String confirmPassword;
   bool _formChanged = false;
+  bool usernameValidator = false;
   DatabaseService dbService = DatabaseService();
-  Future<int> _getUserDetails(String userName) async
-  {
-    final UserModel user = await dbService.getUser(userName);
-    print("user $user");
-    if(user!=null)
-    {
-      if(user.password==password)
-        {
-        return 0; "login successful";
-        }
-      else{
-        return 1; "username / password wrong";
-      }
-    }
-    return null; "no username found ,please sign up ";
+
+  void _createUser() async {
+    final user = UserModel.fromMap({
+      "userName": userName,
+      "password": password,
+    });
+    final int id = await dbService.insertUser(user);
+    print("id $id");
   }
 
+ Future<bool>  _checkIfUserExist(String userName) async {
+     var user = await dbService.getUser(userName);
+    print("user$user");
+
+    if (user != null) {
+      print("user" + user.userName);
+      return true;
+
+    }
+    return false;
+
+  }
+//  Future checkUser() async {
+//    var user = await Firestore.instance
+//        .collection('users')
+//        .document(userNameController.text)
+//        .get();
+//    return user.exists;
+//  }
 
   List data = [];
   @override
@@ -84,30 +101,6 @@ class _LogInFormState extends State<LogInForm> {
     );
   }
 
-  String validatePassword(String value) {
-    /// Password (Hard) Regex
-    /// Allowing all character except 'whitespace'
-    /// Must contains at least: 1 uppercase letter, 1 lowecase letter, 1 number, & 1 special character (symbol)
-    /// Minimum character: 8
-    //bool isHardPassword = value.isPasswordHard();
-
-    if (value.isEmpty) {
-      return 'Please enter password';
-    } else {
-//      if (!isHardPassword)
-//        return 'Enter a hard password';
-      if(value.length<7)
-        return "Password should be minimum 7 characters";
-      // ignore: unrelated_type_equality_checks
-      if(_getUserDetails(userName)==1)
-          {
-           return"username / password wrong" ;
-
-          }
-        return null;
-    }
-  }
-
   void _onFormChange() {
     if (_formChanged) return;
     setState(() {
@@ -115,33 +108,77 @@ class _LogInFormState extends State<LogInForm> {
     });
   }
 
-  Widget _buildUserName(BuildContext context) {
-    return Padding(
+  String validatePassword(String value) {
+    /// Password (Hard) Regex
+    /// Allowing all character except 'whitespace'
+    /// Must contains at least: 1 uppercase letter, 1 lowecase letter, 1 number, & 1 special character (symbol)
+    /// Minimum character: 8
+    // bool isHardPassword = value.isPasswordHard();
+    if (value.isEmpty) {
+      return 'Please enter password';
+    } else {
+//      if (!isHardPassword)
+//        return 'Enter a hard password';
+      if (value.length < 7)
+        return "Password should be minimum 7 characters";
+      else
+        return null;
+    }
+  }
+  String handle(UserModel user)
+  {
+
+    if(user!=null)
+      {
+        print("user.userName"+ user.userName);
+        print("inside if");
+      return 'Already is exist';
+      }
+    else{
+      print("inside else");
+      return null;
+    }
+  }
+  Widget _buildUserName(BuildContext context)  {
+    return  Padding(
       padding: const EdgeInsets.all(10.0),
       child: TextFormField(
         initialValue: ' ',
         autofocus: true,
         keyboardType: TextInputType.name,
         validator: (value) {
-
           if (value.isEmpty) {
-            return 'Please enter some text';
+           return 'Please enter some text';
           }
-          else if(_getUserDetails(value)==null)
-            {
-               return "no username found ,please sign up ";
-            }
-          return null;
+          else {
+            if(usernameValidator)
+              {
+                return 'Username is already taken.';
+              }
+         //    return usernameValidator;
+
+//              user.then((value) {
+//                print("user$value");
+//             return "Already exist";
+//                if (await checkUser())
+//                return 'Username is already taken.';
+   //         }
+      //    );
+          }
+return null;
         },
+
+
         style: TextStyle(color: Colors.black, fontFamily: 'SFUIDisplay'),
-        onSaved: (value) {
-           userName = value;
-        },
         onChanged: (value) {
-          print(value);
+          userName = value;
+          print("value$value");
+        },
+        onSaved: (value) {
+          //userName = value;
+          print("value$value");
         },
         decoration: InputDecoration(
-            labelText: S.of(context).UserNameLabelText,
             border: OutlineInputBorder(),
             prefixIcon: Icon(
               Icons.person,
@@ -157,13 +194,13 @@ class _LogInFormState extends State<LogInForm> {
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
         obscureText: true,
-        onSaved: (value) {
-         password = value;
-        },
         onChanged: (value) {
-        print(value);
+          print("onChanged $value");
+         // password = value;
         },
-
+        onSaved: (value) {
+          //password = value;
+        },
         style: TextStyle(color: Colors.black, fontFamily: 'SFUIDisplay'),
         decoration: InputDecoration(
             labelText: S.of(context).PasswordLabelText,
@@ -181,21 +218,54 @@ class _LogInFormState extends State<LogInForm> {
     );
   }
 
+  Widget _buildConfirmPassword(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        obscureText: true,
+        onChanged: (value) {
+          print(value);
+        },
+        style: TextStyle(color: Colors.black, fontFamily: 'SFUIDisplay'),
+        decoration: InputDecoration(
+            labelText: S.of(context).ConfirmPasswordLabelText,
+            border: OutlineInputBorder(),
+            prefixIcon: Icon(
+              Icons.lock_outline,
+              color: ColorIcons,
+            ),
+            labelStyle: TextStyle(fontSize: 15)),
+        validator: (value) {
+          if (value != _password.text) {
+            return "the password isn't matching";
+          } else
+            return null;
+        },
+      ),
+    );
+  }
+
   Widget _buildSubmit(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: SubmitButton(
         title: S.of(context).SubmitScreen,
-        onPressed: () {
+        onPressed: () async {
+          var response = await _checkIfUserExist(userName);
+
+          setState(() {
+            this.usernameValidator = response;
+            print("usernameValidator$usernameValidator");
+            print("response$response");
+          });
           if (_formKey.currentState.validate()) {
-           _formKey.currentState.save();
+            _formKey.currentState.save();
+            _createUser();
+            print("userName$userName");
+            print("password$password");
+
+          //  Navigator.of(context).pushName;
             // _formKey.currentState.reset();
-//           Navigator.of(context).pushNamed(LightDrawerPage.id);
-           Navigator.pushAndRemoveUntil(
-               context,
-               MaterialPageRoute(
-                   builder: (context) => MainScreen()),
-                   (route) => false);
 
               SnackBar(
                 content: Text(S.of(context).PasswordLabelText),
@@ -208,46 +278,25 @@ class _LogInFormState extends State<LogInForm> {
     );
   }
 
-  Widget _buildForgotPassword(BuildContext context) {
+  Widget _buildSignIn(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(top: 8.0),
       child: Center(
-        child: GestureDetector(
+        child: InkWell(
           child: RichText(
             text: TextSpan(children: [
               TextSpan(
-                  text: S.of(context).ForgotYourPassword,
+                  text: S.of(context).HaveAnAccount,
+                  style:beforeActionText,
+              ),
+              TextSpan(
+                  text: S.of(context).buttonTitleSignIn,
                   style:ActionText,
               ),
             ]),
           ),
           onTap: () {
-            //   Navigator.of(context).pushNamed(ChangePassword.id);
-          },
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSignUp(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: 8.0),
-      child: Center(
-        child: GestureDetector(
-          child: RichText(
-            text: TextSpan(children: [
-              TextSpan(
-                  text: S.of(context).DoNotHaveAnAccount,
-                  style:beforeActionText,
-              ),
-              TextSpan(
-                  text: S.of(context).buttonTitleSignUp,
-                  style: ActionText,
-              )
-            ]),
-          ),
-          onTap: () {
-            Navigator.of(context).pushNamed(SignUpScreen.id);
+            Navigator.of(context).pushNamed(LogInForm.id);
           },
         ),
       ),
@@ -271,9 +320,9 @@ class _LogInFormState extends State<LogInForm> {
                   children: [
                     _buildUserName(context),
                     _buildPassword(context),
+                    _buildConfirmPassword(context),
                     _buildSubmit(context),
-                    _buildForgotPassword(context),
-                    _buildSignUp(context),
+                    _buildSignIn(context),
                   ],
                 ),
               ),

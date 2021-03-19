@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:shopping_app/Screen/FormScreens/LogInScreen.dart';
+import 'package:shopping_app/routs/formRoutes/LogInScreen.dart';
 import 'package:shopping_app/generated/l10n.dart';
-import 'package:shopping_app/widgets/Constants.dart';
+import 'file:///C:/Users/ASUS/AndroidStudioProjects/shopping_app/lib/constant/Constants.dart';
 import 'package:shopping_app/widgets/SubmitButton.dart';
 
 class ChangePassword extends StatefulWidget {

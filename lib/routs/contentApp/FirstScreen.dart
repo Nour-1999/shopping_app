@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/API/ApiServices.dart';
 import 'package:shopping_app/API/ProductModel.dart';
-import 'package:shopping_app/Screen/ContentApp/ProductsDetailsScreen.dart';
-import 'package:shopping_app/Screen/ContentDrawerItem/AboutAppScreen.dart';
-import 'package:shopping_app/Screen/ContentDrawerItem/MyActivitiesScreen.dart';
-import 'package:shopping_app/Screen/ContentDrawerItem/MyCartScreen.dart';
-import 'package:shopping_app/Screen/ContentDrawerItem/MyPurchasesScreen.dart';
-import 'package:shopping_app/Screen/ContentDrawerItem/SettingScreen.dart';
-import 'package:shopping_app/Screen/FormScreens/LogInScreen.dart';
+import 'package:shopping_app/routs/ContentApp/ProductsDetailsScreen.dart';
+import 'package:shopping_app/routs/ContentDrawerItem/AboutAppScreen.dart';
+import 'package:shopping_app/routs/ContentDrawerItem/MyActivitiesScreen.dart';
+import 'package:shopping_app/routs/ContentDrawerItem/MyCartScreen.dart';
+import 'package:shopping_app/routs/ContentDrawerItem/MyPurchasesScreen.dart';
+import 'package:shopping_app/routs/ContentDrawerItem/SettingScreen.dart';
+import 'package:shopping_app/routs/formRoutes/LogInScreen.dart';
 import 'package:shopping_app/generated/l10n.dart';
-import 'package:shopping_app/widgets/Constants.dart';
+import 'file:///C:/Users/ASUS/AndroidStudioProjects/shopping_app/lib/constant/Constants.dart';
 
 
 class MainScreen extends StatefulWidget {

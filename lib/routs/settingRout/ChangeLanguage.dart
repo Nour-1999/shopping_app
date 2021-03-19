@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_app/Screen/SplashScreens/SplashScreen.dart';
-import 'package:shopping_app/Screen/SplashScreens/SplashScreen.dart';
-import 'package:shopping_app/Screen/introscreen/IntroScreen.dart';
-import 'package:shopping_app/widgets/Constants.dart';
+import 'package:shopping_app/constant/Constants.dart';
+import 'package:shopping_app/routs/splashRout/SplashScreen.dart';
+import 'package:shopping_app/routs/introRout//IntroScreen.dart';
 import 'package:shopping_app/generated/l10n.dart';
 
 

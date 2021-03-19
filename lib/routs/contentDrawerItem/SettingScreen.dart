@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_app/Screen/SettingScreens/ChangeLanguage.dart';
-import 'package:shopping_app/Screen/SettingScreens/ChangePassword.dart';
-import 'package:shopping_app/Screen/SplashScreens/SplashScreen.dart';
+import 'package:shopping_app/routs/settingRout/ChangeLanguage.dart';
+import 'package:shopping_app/routs/settingRout/ChangePassword.dart';
+import 'package:shopping_app/routs/splashRout/SplashScreen.dart';
 import 'package:shopping_app/generated/l10n.dart';
-import 'package:shopping_app/widgets/Constants.dart';
+import 'file:///C:/Users/ASUS/AndroidStudioProjects/shopping_app/lib/constant/Constants.dart';
 
 class SettingScreen extends StatefulWidget {
   static const String id = 'SettingScreen';

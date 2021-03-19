@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_app/widgets/Constants.dart';
+import 'file:///C:/Users/ASUS/AndroidStudioProjects/shopping_app/lib/constant/Constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProductsDetailsScreen extends StatelessWidget {

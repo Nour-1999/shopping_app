@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intro_views_flutter/Models/page_view_model.dart';
 import 'package:intro_views_flutter/intro_views_flutter.dart';
-import 'package:shopping_app/Screen/FormScreens/LogInScreen.dart';
-import 'package:shopping_app/Screen/FormScreens/SignUpForm.dart';
+import 'package:shopping_app/routs/formRoutes/LogInScreen.dart';
+import 'package:shopping_app/routs/formRoutes/SignUpForm.dart';
 
 
 class IntroScreenClass extends StatefulWidget {

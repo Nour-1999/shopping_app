@@ -5,7 +5,7 @@ import 'package:shopping_app/API/ProductModel.dart';
 
 class ApiServices{
   Future<List<Product>> fetchProducts() async {
-    final response = await http.get('https://fakestoreapi.com/products');
+    final response = await http.get('https://fakestoreapi.herokuapp.com/products');
     if (response.statusCode == 200) {
       return parseProduct(response.body);
     } else {
