@@ -13,31 +13,50 @@ class ProductsDetailsScreen extends StatelessWidget {
   final String title;
   final String description;
   final String category;
-  final String price;
+   var price;
   Widget build(BuildContext context) {
     return Scaffold(
       body: Material(
         child: ListView(
+          padding: EdgeInsets.all(8.0),
           children: [
-            Image(
-              image: AssetImage(image),
-              fit: BoxFit.cover,
+//            Image(
+//              image: NetworkImage(image),
+//              fit: BoxFit.cover,
+//            ),
+//            CircleAvatar(
+//              backgroundImage:NetworkImage(image),
+//
+//                radius: 50.0,
+//            ),
+          Text(image),
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: ListTile(
+                leading: Text("Title"),
+                title: Text(title),
+              ),
             ),
-            ListTile(
-              leading: Text("Title"),
-              title: Text(title),
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: ListTile(
+                leading: Text("Description"),
+                title: Text(description),
+              ),
             ),
-            ListTile(
-              leading: Text("Description"),
-              title: Text(description),
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: ListTile(
+                leading: Text("Category"),
+                title: Text(category),
+              ),
             ),
-            ListTile(
-              leading: Text("Category"),
-              title: Text(category),
-            ),
-            ListTile(
-              leading: Text("Price"),
-              title: Text(price),
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: ListTile(
+                leading: Text("Price"),
+                title: Text(price.toString()+"\$"),
+              ),
             ),
           ],
         ),

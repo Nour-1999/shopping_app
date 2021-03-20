@@ -26,7 +26,7 @@ dependencies:
   intl:
   flutter_localizations:
     sdk: flutter
-  splashscreen:
+
   regexpattern:
   sqflite:
   cupertino_icons: ^1.0.0

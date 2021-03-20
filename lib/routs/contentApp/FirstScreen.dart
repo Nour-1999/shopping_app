@@ -11,46 +11,134 @@ import 'package:shopping_app/routs/formRoutes/LogInScreen.dart';
 import 'package:shopping_app/generated/l10n.dart';
 import 'file:///C:/Users/ASUS/AndroidStudioProjects/shopping_app/lib/constant/Constants.dart';
 
-
 class MainScreen extends StatefulWidget {
   static const String id = 'MainScreen';
   @override
   _MainScreenState createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin  {
-  int countOfTabs;
-  AnimationController  controller;
+class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
+  List<String> categoryType = [
+    "electronics",
+    "jewelery",
+    "men clothing",
+    "women clothing"
+  ];
+  Future<List<Product>> futureProduct;
+  ApiServices apiServices = ApiServices();
+//Type of category
+  Widget contentTabs;
+   int _startingTabCount = 4;
+
+  List<Tab> _tabs = List<Tab>();
+  List<Widget> _generalWidgets = List<Widget>();
+  TabController _tabController;
   @override
   void initState() {
-    controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 1),
-    )..addListener(() {
-      setState(() {
-
-      });
-    });
-    controller.repeat(reverse: true);
+    _tabs = getTabs(_startingTabCount);
+    _tabController = getTabController();
+    futureProduct = apiServices.fetchProducts();
     super.initState();
   }
+
   @override
   void dispose() {
-    controller.dispose();
+    _tabController.dispose();
     super.dispose();
   }
- apiContent() async
-{
-  ApiServices apiServices = ApiServices();
-  List<Product> product = await apiServices.fetchProducts();
-  return product;
+  Tab getTab(String text) {
+    return Tab(
+      child: Text(
+        text,
+        style: tabBarTextStyle,
+      ),
+    );
+  }
+  List<Tab> getTabs(int count) {
+    _tabs.clear();
+    for (int i = 0; i < count; i++) {
+      _tabs.add(getTab(categoryType.elementAt(i)));
+      print("categoryType.elementAt(i)"+categoryType.elementAt(i));
+    }
+    return _tabs;
+  }
+  TabController getTabController() {
+    return TabController(length: _tabs.length, vsync: this);
+  }
+  Widget getWidget(String category) {
+    return Tab(
+      child: FutureBuilder<List<Product>>(
+        future: futureProduct,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return  GridView.builder(
+                shrinkWrap: true,
+                itemCount: snapshot.data.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                itemBuilder: (context, i) {
+                  if (snapshot.data[i].category == category) {
+                    contentTabs = Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                        child: Card(
+                          child: Column(
+                            children: [
+//                                Image(
+//                                    image: NetworkImage(
+//                                        snapshot.data[i].image.toString())),
+                              Text(snapshot.data[i].title),
+                              Text(snapshot.data[i].price.toString() + " \$"),
+                            ],
+                          ),
+                        ),
+                        onTap: () {
+                          setState(() {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProductsDetailsScreen(
+                                  image: snapshot.data[i].image.toString(),
+                                  title: snapshot.data[i].title,
+                                  description: snapshot.data[i].description,
+                                  category: snapshot.data[i].category,
+                                  price: snapshot.data[i].price,
+                                ),
+                              ),
+                            );
+                          });
+                        },
+                      ),
+                    );
+                  }
+                  return contentTabs;
+                });
+          } else if (snapshot.hasError) {
+            return Text("${snapshot.error}");
+          }
 
-}
+          // By default, show a loading spinner.
+          return CircularProgressIndicator(
+            backgroundColor: ColorApp,
+          );
+        },
+      ),
+    );
+  }
+  List<Widget> getWidgets() {
+    _generalWidgets.clear();
+    for (int i = 0; i < _tabs.length; i++) {
+      _generalWidgets.add(getWidget(categoryType.elementAt(i)));
+      print("length"+_tabs.length.toString());
+    }
+    return _generalWidgets;
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
     var localization = S.of(context);
-    var navigator =   Navigator.of(context);
+    var navigator = Navigator.of(context);
     final drawerHeader = DrawerHeader(
       child: Center(
           child: Column(
@@ -69,19 +157,19 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin  
       decoration: BoxDecoration(
           image: DecorationImage(
               image:
-              AssetImage("images/stains_dark_texture_129779_300x168.jpg"),
+                  AssetImage("images/stains_dark_texture_129779_300x168.jpg"),
               fit: BoxFit.cover)),
     );
     final drawerItems = ListView(
       children: [
         drawerHeader,
-
         ListTile(
           title: Text(
-               localization.MyCart,
+            localization.MyCart,
             style: StyleTextWithIcon,
-              ),
-          leading: const Icon(Icons.shopping_cart,
+          ),
+          leading: const Icon(
+            Icons.shopping_cart,
             color: ColorIcons,
           ),
           onTap: () {
@@ -90,21 +178,24 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin  
         ),
         ListTile(
           title: Text(
-               localization.MyPurchases,
+            localization.MyPurchases,
             style: StyleTextWithIcon,
-              ),
-          leading: const Icon(Icons.work_sharp,
-            color: ColorIcons,),
+          ),
+          leading: const Icon(
+            Icons.work_sharp,
+            color: ColorIcons,
+          ),
           onTap: () {
             navigator.pushNamed(MyPurchasesScreen.id);
           },
         ),
         ListTile(
           title: Text(
-             localization.MyActivities,
+            localization.MyActivities,
             style: StyleTextWithIcon,
-              ),
-          leading: const Icon(Icons.list,
+          ),
+          leading: const Icon(
+            Icons.list,
             color: ColorIcons,
           ),
           onTap: () {
@@ -113,10 +204,11 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin  
         ),
         ListTile(
           title: Text(
-            localization.Setting ,
+            localization.Setting,
             style: StyleTextWithIcon,
           ),
-          leading: const Icon(Icons.settings,
+          leading: const Icon(
+            Icons.settings,
             color: ColorIcons,
           ),
           onTap: () {
@@ -125,16 +217,17 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin  
         ),
         ListTile(
           title: Text(
-               localization.About,
+            localization.About,
             style: StyleTextWithIcon,
-              ),
-          leading: const Icon(Icons.announcement,
-            color: ColorIcons,),
+          ),
+          leading: const Icon(
+            Icons.announcement,
+            color: ColorIcons,
+          ),
           onTap: () {
             navigator.pushNamed(AboutAppScreen.id);
           },
         ),
-
         ListTile(
           title: Text(
             localization.LogOut,
@@ -151,7 +244,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin  
       ],
     );
     return DefaultTabController(
-      length:4,
+      length: _startingTabCount,
       child: Scaffold(
         appBar: AppBar(
           title: Text(
@@ -160,590 +253,13 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin  
           ),
           backgroundColor: ColorApp,
           bottom: TabBar(
-            tabs: [
-              Tab(
-                child: Text(
-                    "Electronics",
-                  style: tabBarTextStyle,
-                ),
-              ),
-              Tab(
-                child: Text(
-                  "Jewelery",
-                  style: tabBarTextStyle,
-                ),
-              ),
-              Tab(
-                child: Text(
-                  "Man clothing",
-                  style: tabBarTextStyle,
-                ),
-              ),
-              Tab(
-                child: Text(
-                  "Women clothing",
-                  style: tabBarTextStyle,
-                ),
-              ),
-
-            ],
+            tabs: _tabs,
+            controller: _tabController,
           ),
         ),
         body: TabBarView(
-          children: [
-            Tab(
-              child: ListView(
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: GestureDetector(
-                            child: Card(
-                              child: Column(
-                                children: [
-                                  Image(image: AssetImage("images/Screen.jpg")),
-                                  Text("ttttt"),
-                                  Text("gggggg"),
-                                ],
-                              ),
-                            ),
-                            onTap: ()
-                            {
-                              setState(() {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ProductsDetailsScreen(image:"images/Screen.jpg",title:"tttt",description: "gff",category: "mmm",price: "20.0",),
-                                  ),
-                                );
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: GestureDetector(
-                            child: Card(
-                              child: Column(
-                                children: [
-                                  Image(image: AssetImage("images/Screen.jpg")),
-                                  Text("ttttt"),
-                                  Text("gggggg"),
-                                ],
-                              ),
-                            ),
-                            onTap: ()
-                            {
-                              setState(() {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ProductsDetailsScreen(image:"images/Screen.jpg",title:"tttt",description: "gff",category: "mmm",price: "20.0",),
-                                  ),
-                                );
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: GestureDetector(
-                            child: Card(
-                              child: Column(
-                                children: [
-                                  Image(image: AssetImage("images/Screen.jpg")),
-                                  Text("ttttt"),
-                                  Text("gggggg"),
-                                ],
-                              ),
-                            ),
-                            onTap: ()
-                            {
-                              setState(() {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ProductsDetailsScreen(image:"images/Screen.jpg",title:"tttt",description: "gff",category: "mmm",price: "20.0",),
-                                  ),
-                                );
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: GestureDetector(
-                            child: Card(
-                              child: Column(
-                                children: [
-                                  Image(image: AssetImage("images/Screen.jpg")),
-                                  Text("ttttt"),
-                                  Text("gggggg"),
-                                ],
-                              ),
-                            ),
-                            onTap: ()
-                            {
-                              setState(() {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ProductsDetailsScreen(image:"images/Screen.jpg",title:"tttt",description: "gff",category: "mmm",price: "20.0",),
-                                  ),
-                                );
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: GestureDetector(
-                            child: Card(
-                              child: Column(
-                                children: [
-                                  Image(image: AssetImage("images/Screen.jpg")),
-                                  Text("ttttt"),
-                                  Text("gggggg"),
-                                ],
-                              ),
-                            ),
-                            onTap: ()
-                            {
-                              setState(() {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ProductsDetailsScreen(image:"images/Screen.jpg",title:"tttt",description: "gff",category: "mmm",price: "20.0",),
-                                  ),
-                                );
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: GestureDetector(
-                            child: Card(
-                              child: Column(
-                                children: [
-                                  Image(image: AssetImage("images/Screen.jpg")),
-                                  Text("ttttt"),
-                                  Text("gggggg"),
-                                ],
-                              ),
-                            ),
-                            onTap: ()
-                            {
-                              setState(() {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ProductsDetailsScreen(image:"images/Screen.jpg",title:"tttt",description: "gff",category: "mmm",price: "20.0",),
-                                  ),
-                                );
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              )
-            ),
-            Tab(
-                child: ListView(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: GestureDetector(
-                              child: Card(
-                                child: Column(
-                                  children: [
-                                    Image(image: AssetImage("images/Screen.jpg")),
-                                    Text("ttttt"),
-                                    Text("gggggg"),
-                                  ],
-                                ),
-                              ),
-                              onTap: ()
-                              {
-                                setState(() {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ProductsDetailsScreen(image:"images/Screen.jpg",title:"tttt",description: "gff",category: "mmm",price: "20.0",),
-                                    ),
-                                  );
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: GestureDetector(
-                              child: Card(
-                                child: Column(
-                                  children: [
-                                    Image(image: AssetImage("images/Screen.jpg")),
-                                    Text("ttttt"),
-                                    Text("gggggg"),
-                                  ],
-                                ),
-                              ),
-                              onTap: ()
-                              {
-                                setState(() {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ProductsDetailsScreen(image:"images/Screen.jpg",title:"tttt",description: "gff",category: "mmm",price: "20.0",),
-                                    ),
-                                  );
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: GestureDetector(
-                              child: Card(
-                                child: Column(
-                                  children: [
-                                    Image(image: AssetImage("images/Screen.jpg")),
-                                    Text("ttttt"),
-                                    Text("gggggg"),
-                                  ],
-                                ),
-                              ),
-                              onTap: ()
-                              {
-                                setState(() {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ProductsDetailsScreen(image:"images/Screen.jpg",title:"tttt",description: "gff",category: "mmm",price: "20.0",),
-                                    ),
-                                  );
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: GestureDetector(
-                              child: Card(
-                                child: Column(
-                                  children: [
-                                    Image(image: AssetImage("images/Screen.jpg")),
-                                    Text("ttttt"),
-                                    Text("gggggg"),
-                                  ],
-                                ),
-                              ),
-                              onTap: ()
-                              {
-                                setState(() {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ProductsDetailsScreen(image:"images/Screen.jpg",title:"tttt",description: "gff",category: "mmm",price: "20.0",),
-                                    ),
-                                  );
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: GestureDetector(
-                              child: Card(
-                                child: Column(
-                                  children: [
-                                    Image(image: AssetImage("images/Screen.jpg")),
-                                    Text("ttttt"),
-                                    Text("gggggg"),
-                                  ],
-                                ),
-                              ),
-                              onTap: ()
-                              {
-                                setState(() {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ProductsDetailsScreen(image:"images/Screen.jpg",title:"tttt",description: "gff",category: "mmm",price: "20.0",),
-                                    ),
-                                  );
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: GestureDetector(
-                              child: Card(
-                                child: Column(
-                                  children: [
-                                    Image(image: AssetImage("images/Screen.jpg")),
-                                    Text("ttttt"),
-                                    Text("gggggg"),
-                                  ],
-                                ),
-                              ),
-                              onTap: ()
-                              {
-                                setState(() {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ProductsDetailsScreen(image:"images/Screen.jpg",title:"tttt",description: "gff",category: "mmm",price: "20.0",),
-                                    ),
-                                  );
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                )
-            ),
-            Tab(
-                child: ListView(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: GestureDetector(
-                              child: Card(
-                                child: Column(
-                                  children: [
-                                    Image(image: AssetImage("images/Screen.jpg")),
-                                    Text("ttttt"),
-                                    Text("gggggg"),
-                                  ],
-                                ),
-                              ),
-                              onTap: ()
-                              {
-                                setState(() {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ProductsDetailsScreen(image:"images/Screen.jpg",title:"tttt",description: "gff",category: "mmm",price: "20.0",),
-                                    ),
-                                  );
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: GestureDetector(
-                              child: Card(
-                                child: Column(
-                                  children: [
-                                    Image(image: AssetImage("images/Screen.jpg")),
-                                    Text("ttttt"),
-                                    Text("gggggg"),
-                                  ],
-                                ),
-                              ),
-                              onTap: ()
-                              {
-                                setState(() {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ProductsDetailsScreen(image:"images/Screen.jpg",title:"tttt",description: "gff",category: "mmm",price: "20.0",),
-                                    ),
-                                  );
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: GestureDetector(
-                              child: Card(
-                                child: Column(
-                                  children: [
-                                    Image(image: AssetImage("images/Screen.jpg")),
-                                    Text("ttttt"),
-                                    Text("gggggg"),
-                                  ],
-                                ),
-                              ),
-                              onTap: ()
-                              {
-                                setState(() {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ProductsDetailsScreen(image:"images/Screen.jpg",title:"tttt",description: "gff",category: "mmm",price: "20.0",),
-                                    ),
-                                  );
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: GestureDetector(
-                              child: Card(
-                                child: Column(
-                                  children: [
-                                    Image(image: AssetImage("images/Screen.jpg")),
-                                    Text("ttttt"),
-                                    Text("gggggg"),
-                                  ],
-                                ),
-                              ),
-                              onTap: ()
-                              {
-                                setState(() {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ProductsDetailsScreen(image:"images/Screen.jpg",title:"tttt",description: "gff",category: "mmm",price: "20.0",),
-                                    ),
-                                  );
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: GestureDetector(
-                              child: Card(
-                                child: Column(
-                                  children: [
-                                    Image(image: AssetImage("images/Screen.jpg")),
-                                    Text("ttttt"),
-                                    Text("gggggg"),
-                                  ],
-                                ),
-                              ),
-                              onTap: ()
-                              {
-                                setState(() {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ProductsDetailsScreen(image:"images/Screen.jpg",title:"tttt",description: "gff",category: "mmm",price: "20.0",),
-                                    ),
-                                  );
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: GestureDetector(
-                              child: Card(
-                                child: Column(
-                                  children: [
-                                    Image(image: AssetImage("images/Screen.jpg")),
-                                    Text("ttttt"),
-                                    Text("gggggg"),
-                                  ],
-                                ),
-                              ),
-                              onTap: ()
-                              {
-                                setState(() {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ProductsDetailsScreen(image:"images/Screen.jpg",title:"tttt",description: "gff",category: "mmm",price: "20.0",),
-                                    ),
-                                  );
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                )
-            ),
-            Tab(
-
-            child:  CircularProgressIndicator(
-              value: controller.value,
-              semanticsLabel: 'Linear progress indicator',
-              backgroundColor: ColorApp,
-
-            ),
-              //icon: Icon(Icons.directions_transit),
-            ),
-
-
-          ],
+          controller: _tabController,
+          children: getWidgets(),
         ),
         drawer: Drawer(
           child: drawerItems,
@@ -752,3 +268,4 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin  
     );
   }
 }
+
