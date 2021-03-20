@@ -180,6 +180,7 @@ return null;
         },
         decoration: InputDecoration(
             border: OutlineInputBorder(),
+            labelText: S.of(context).UserNameLabelText,
             prefixIcon: Icon(
               Icons.person,
               color: ColorIcons,
