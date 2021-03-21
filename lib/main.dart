@@ -42,7 +42,11 @@ class MyApp extends StatelessWidget {
           AboutAppScreen.id: (context) => AboutAppScreen(),
           ChangeLanguage.id:(context)=>ChangeLanguage(),
         },
-
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          S.delegate
+        ],
         supportedLocales: S.delegate.supportedLocales,
         initialRoute:  SplashScreenClass.id);
   }

@@ -197,7 +197,7 @@ return null;
         obscureText: true,
         onChanged: (value) {
           print("onChanged $value");
-         // password = value;
+         password = value;
         },
         onSaved: (value) {
           //password = value;
