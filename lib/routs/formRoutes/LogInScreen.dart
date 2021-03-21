@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/Model/DatabaseServce.dart';
 import 'package:shopping_app/Model/User.dart';
+import 'package:shopping_app/constant/Constants.dart';
 import 'package:shopping_app/routs/ContentApp/FirstScreen.dart';
 import 'package:shopping_app/routs/formRoutes/SignUpForm.dart';
 import 'package:shopping_app/generated/l10n.dart';
-import 'file:///C:/Users/ASUS/AndroidStudioProjects/shopping_app/lib/constant/Constants.dart';
 import 'package:shopping_app/widgets/ReuseForm.dart';
 import 'package:shopping_app/widgets/SubmitButton.dart';
 
@@ -15,18 +15,18 @@ class LogInForm extends StatefulWidget {
   _LogInFormState createState() => _LogInFormState();
 }
 
-
-
-
 class _LogInFormState extends State<LogInForm> {
+
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _password = TextEditingController();
+  final TextEditingController _passwordTextEditingController = TextEditingController();
+  String usernameValidator = "";
+  String passwordValidator = "";
   FocusNode focusNode;
-  String userName;
-  String password;
+  String _username,_password;
   bool _formChanged = false;
   DatabaseService dbService = DatabaseService();
-  Future<int> _getUserDetails(String userName) async
+
+  Future<String> _getUserDetails(String userName,String password) async
   {
     final UserModel user = await dbService.getUser(userName);
     print("user $user");
@@ -34,13 +34,13 @@ class _LogInFormState extends State<LogInForm> {
     {
       if(user.password==password)
         {
-        return 0; "login successful";
+          return  "successful";
         }
       else{
-        return 1; "username / password wrong";
+        return  "Password";
       }
     }
-    return null; "no username found ,please sign up ";
+    return "user";
   }
 
 
@@ -99,7 +99,7 @@ class _LogInFormState extends State<LogInForm> {
       if(value.length<7)
         return "Password should be minimum 7 characters";
       // ignore: unrelated_type_equality_checks
-      if(_getUserDetails(userName)==1)
+      if(passwordValidator=="Password")
           {
            return"username / password wrong" ;
 
@@ -127,7 +127,7 @@ class _LogInFormState extends State<LogInForm> {
           if (value.isEmpty) {
             return 'Please enter some text';
           }
-          else if(_getUserDetails(value)==null)
+          else if(usernameValidator=="user")
             {
                return "no username found ,please sign up ";
             }
@@ -135,10 +135,11 @@ class _LogInFormState extends State<LogInForm> {
         },
         style: TextStyle(color: Colors.black, fontFamily: 'SFUIDisplay'),
         onSaved: (value) {
-           userName = value;
+          print(value);
         },
         onChanged: (value) {
           print(value);
+          _username = value;
         },
         decoration: InputDecoration(
             labelText: S.of(context).UserNameLabelText,
@@ -158,10 +159,11 @@ class _LogInFormState extends State<LogInForm> {
       child: TextFormField(
         obscureText: true,
         onSaved: (value) {
-         password = value;
+          print(value);
         },
         onChanged: (value) {
         print(value);
+        _password = value;
         },
 
         style: TextStyle(color: Colors.black, fontFamily: 'SFUIDisplay'),
@@ -176,37 +178,45 @@ class _LogInFormState extends State<LogInForm> {
         validator: (value) {
           return validatePassword(value);
         },
-        controller: _password,
+        controller: _passwordTextEditingController,
       ),
     );
   }
 
   Widget _buildSubmit(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SubmitButton(
-        title: S.of(context).SubmitScreen,
-        onPressed: () {
-          if (_formKey.currentState.validate()) {
-           _formKey.currentState.save();
-            // _formKey.currentState.reset();
+     return   Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SubmitButton(
+            title: S
+                .of(context)
+                .SubmitScreen,
+            onPressed: () async {
+              var response = await _getUserDetails(_username,_password);
+
+              setState(() {
+                this.usernameValidator = response;
+                this.passwordValidator = response;
+                print("usernameValidator$usernameValidator");
+                print("response$response");
+                print("passwordValidator$passwordValidator");
+
+              });
+              if (_formKey.currentState.validate()) {
+                _formKey.currentState.save();
+                // _formKey.currentState.reset();
 //           Navigator.of(context).pushNamed(LightDrawerPage.id);
-           Navigator.pushAndRemoveUntil(
-               context,
-               MaterialPageRoute(
-                   builder: (context) => MainScreen()),
-                   (route) => false);
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MainScreen()),
+                        (route) => false);
+              };
+            },
+            colour: ColorApp,
+          ),
+        );
+    }
 
-              SnackBar(
-                content: Text(S.of(context).PasswordLabelText),
-
-            );
-          };
-        },
-        colour: ColorApp,
-      ),
-    );
-  }
 
   Widget _buildForgotPassword(BuildContext context) {
     return Padding(
@@ -254,6 +264,7 @@ class _LogInFormState extends State<LogInForm> {
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -283,4 +294,7 @@ class _LogInFormState extends State<LogInForm> {
       ),
     );
   }
+
+
+
 }

@@ -53,13 +53,6 @@ class SignUpScreenState extends State<SignUpScreen> {
     return false;
 
   }
-//  Future checkUser() async {
-//    var user = await Firestore.instance
-//        .collection('users')
-//        .document(userNameController.text)
-//        .get();
-//    return user.exists;
-//  }
 
   List data = [];
   @override
@@ -155,15 +148,6 @@ class SignUpScreenState extends State<SignUpScreen> {
               {
                 return 'Username is already taken.';
               }
-         //    return usernameValidator;
-
-//              user.then((value) {
-//                print("user$value");
-//             return "Already exist";
-//                if (await checkUser())
-//                return 'Username is already taken.';
-   //         }
-      //    );
           }
 return null;
         },

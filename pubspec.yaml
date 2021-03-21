@@ -35,6 +35,7 @@ dependencies:
   intro_views_flutter:
   font_awesome_flutter:
   animated_splash_screen:
+  shared_preferences:
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -14,7 +14,7 @@ class UserModel {
       : assert(map["userName"] != null),
         assert(map["password"] != null),
         _userName = map["userName"],
-        _password = map["password"] is String
+        _password = map["password"] is int || map["password"] is String
             ? map["password"].toString()
             : map["password"];
 
