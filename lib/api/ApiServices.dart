@@ -4,8 +4,8 @@ import 'dart:convert';
 import 'package:shopping_app/API/ProductModel.dart';
 
 class ApiServices{
-  Future<List<Product>> fetchProducts() async {
-    final response = await http.get('https://fakestoreapi.herokuapp.com/products');
+  Future<List<Product>> fetchProducts(String category) async {
+    final response = await http.get('https://fakestoreapi.herokuapp.com/products/category/$category');
     if (response.statusCode == 200) {
       return parseProduct(response.body);
     } else {
@@ -26,7 +26,7 @@ class ApiServices{
 
 void main() async {
   ApiServices apiServices = ApiServices();
-  List<Product> product = await apiServices.fetchProducts();
+  List<Product> product = await apiServices.fetchProducts("jewelery");
   for(int i=0;i<product.length;i++)
     {
       print(product[i].id);

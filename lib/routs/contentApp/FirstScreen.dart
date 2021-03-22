@@ -30,6 +30,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   Widget contentTabs;
    int _startingTabCount = 4;
 
+
   List<Tab> _tabs = List<Tab>();
   List<Widget> _generalWidgets = List<Widget>();
   TabController _tabController;
@@ -37,7 +38,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   void initState() {
     _tabs = getTabs(_startingTabCount);
     _tabController = getTabController();
-    futureProduct = apiServices.fetchProducts();
+
+    print("futureProduct$futureProduct");
     super.initState();
   }
 
@@ -65,10 +67,11 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   TabController getTabController() {
     return TabController(length: _tabs.length, vsync: this);
   }
+
   Widget getWidget(String category) {
     return Tab(
       child: FutureBuilder<List<Product>>(
-        future: futureProduct,
+        future: apiServices.fetchProducts(category),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return  GridView.builder(
@@ -76,7 +79,6 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                 itemCount: snapshot.data.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
                 itemBuilder: (context, i) {
-                  if (snapshot.data[i].category == category) {
                     contentTabs = Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: GestureDetector(
@@ -109,7 +111,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         },
                       ),
                     );
-                  }
+
                   return contentTabs;
                 });
           } else if (snapshot.hasError) {
